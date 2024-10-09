@@ -1,5 +1,6 @@
 package com.Aman.todolist;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -113,6 +114,9 @@ public class AddTask extends BottomSheetDialogFragment {
                 String task = taskEdit.getText().toString();
                 if (task.isEmpty()) {
                     Toast.makeText(context, "Empty task not allowed", Toast.LENGTH_SHORT).show();
+
+//                } else if (dueDate == null) {
+//                    Toast.makeText(context, "Please set a due date", Toast.LENGTH_SHORT).show();
                 } else {
                     Map<String, Object> taskMap = new HashMap<>();
 
@@ -154,6 +158,9 @@ public class AddTask extends BottomSheetDialogFragment {
     @Override
     public void onDismiss(@NonNull DialogInterface dialog) {
         super.onDismiss(dialog);
-
+        Activity activity = getActivity();
+        if(activity instanceof OnDialogInterface){
+            ((OnDialogInterface)activity).onDialogClose(dialog);
+        }
     }
 }
